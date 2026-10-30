@@ -77,8 +77,21 @@ class LinuxGuestTests(unittest.TestCase):
                 ["lz4", "-l", "-c"], input=cpio, stdout=packed.open("wb"), check=True
             )
             modules = linux_guest.module_archive_entries(packed)
-            self.assertEqual(modules["virtio_blk.ko"], b"BLK")
-            self.assertEqual(modules["virtio_pci.ko"], b"PCI")
+            self.assertEqual(modules["lib/modules/virtio_blk.ko"], b"BLK")
+            self.assertEqual(modules["lib/modules/virtio_pci.ko"], b"PCI")
+
+    def test_initramfs_creates_module_directories(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            tar = root / "mini.tar"
+            make_tar(tar, [("etc/alpine-release", b"3.20.3\n", 0o644)])
+            init = root / "init.sh"
+            init.write_text("#!/bin/sh\n")
+            data = gzip.decompress(linux_guest.build_initramfs(
+                tar, {"lib/modules/virtio_blk.ko": b"BLK"}, init))
+            names = {name for name, _mode, _body in linux_guest.read_cpio(data)}
+            self.assertIn("lib/modules", names)
+            self.assertIn("lib/modules/virtio_blk.ko", names)
 
     def test_module_archive_reports_what_is_missing(self):
         with tempfile.TemporaryDirectory() as temporary:
