@@ -68,11 +68,14 @@ def strip_bootconfig(ramdisk):
     return ramdisk[: -20 - size]
 
 
-def arguments(kernel, ramdisk, disk, console, ram_mib, vendor_cmdline=""):
+def arguments(
+    kernel, ramdisk, disk, console, ram_mib, vendor_cmdline="", kernel_audit="1"
+):
     extras = " ".join(
         word
         for word in shlex.split(vendor_cmdline)
         if not word.startswith(("androidboot.", "console=", "earlycon=", "panic="))
+        and not word.startswith("audit=")
         and word != "bootconfig"
     )
     args = [
@@ -104,6 +107,7 @@ def arguments(kernel, ramdisk, disk, console, ram_mib, vendor_cmdline=""):
         "-append",
         "console=ttyAMA0 earlycon=pl011,mmio32,0x09000000 "
         + extras
+        + f" audit={kernel_audit}"
         + " bootconfig androidboot.aster_nonce={nonce} panic=-1",
         "-device",
         "virtio-gpu-pci,disable-legacy=on,xres=480,yres=800",
@@ -148,6 +152,12 @@ def main():
     parser.add_argument("--ram-mib", type=int, default=1536)
     parser.add_argument("--timeout", type=int, default=600)
     parser.add_argument("--vendor-cmdline", type=Path)
+    parser.add_argument(
+        "--kernel-audit",
+        choices=["0", "1"],
+        default="1",
+        help="Disable only for an explicitly recorded audit-overhead experiment",
+    )
     parser.add_argument(
         "--disk-sha256",
         help="Expected disk hash, otherwise read adjacent prepared.json",
@@ -217,6 +227,7 @@ def main():
             console,
             args.ram_mib,
             args.vendor_cmdline.read_text() if args.vendor_cmdline else "",
+            args.kernel_audit,
         ),
         "timeout_seconds": args.timeout,
         "stop_on_completion": True,

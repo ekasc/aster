@@ -1,0 +1,46 @@
+su 0 /system/bin/sh -c '#!/system/bin/sh
+# Run from the guest'"'"'s local debug console, never from a network ADB listener.
+exec > /dev/ttyAMA0 2>&1
+nonce=$(getprop ro.boot.aster_nonce)
+case "$nonce" in
+    '"'"''"'"'|*[!0-9a-f]*) exit 2 ;;
+esac
+[ "${#nonce}" = 32 ] || exit 2
+sequence=0
+emit() {
+    sequence=$((sequence + 1))
+    printf '"'"'\nASTER-%s|%s|%s|%s|%s\n'"'"' BOOT "$nonce" "$sequence" "$1" "$2"
+}
+emit MARKER framework_probe_started
+logcat -b all -v threadtime > /dev/hvc2 2>&1 &
+logcat_pid=$!
+trap '"'"'kill "$logcat_pid" 2>/dev/null; wait "$logcat_pid" 2>/dev/null'"'"' EXIT
+while [ "$(getprop sys.boot_completed)" != 1 ]; do
+    sleep 2
+done
+if ! logcat -b all -d -v threadtime; then
+    emit FAIL logcat_capture_failed
+    exit 1
+fi
+activity=$(service check activity)
+pid=$(pidof system_server)
+case "$activity" in
+    *'"'"': found'"'"'*) ;;
+    *) emit FAIL activity_service_missing; exit 1 ;;
+esac
+case "$pid" in
+    '"'"''"'"'|*[!0-9]*|0) emit FAIL system_server_missing; exit 1 ;;
+esac
+user=$(cmd activity get-current-user)
+case "$user" in
+    '"'"''"'"'|*[!0-9]*) emit FAIL activity_binder_call_failed; exit 1 ;;
+esac
+[ "$(getprop sys.boot_completed)" = 1 ] || {
+    emit FAIL boot_property_regressed
+    exit 1
+}
+emit MARKER "activity_current_user=$user"
+emit PROP sys.boot_completed=1
+emit FRAMEWORK service_activity=found
+emit FRAMEWORK "system_server_pid=$pid"
+'

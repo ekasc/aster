@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "passed": false,
+  "android_booted": false,
+  "nonce": "d5dba720735744df982c29bf0bdb3003",
+  "evidence_dir": "/Users/ekassinghchhabra/Projects/aster/build/android/integration/h4/runs/run-20261030-072936-d5dba720",
+  "transcript": "/Users/ekassinghchhabra/Projects/aster/build/android/integration/h4/runs/run-20261030-072936-d5dba720/serial.log",
+  "config_path": "/Users/ekassinghchhabra/Projects/aster/build/android/integration/h4/config.json",
+  "completed_utc": "2026-10-30T07:59:38Z",
+  "timeout_seconds": 1800,
+  "measurement": {
+    "pid": 2390,
+    "exit_code": 0,
+    "term_signal": null,
+    "timed_out": true,
+    "runner_stop_requested": false,
+    "cooperative_stop": true,
+    "escalated_to_kill": false,
+    "reaped": true,
+    "wall_seconds": 1800.08511,
+    "cpu_seconds": 1773.065561,
+    "cpu_percent_of_one_core": 98.499,
+    "peak_rss_bytes": 352960512,
+    "rusage_scope": "os.wait4 rusage for this QEMU host process; guest kernel and userspace execute within it. resource.getrusage(RUSAGE_CHILDREN) is cumulative over every child this process reaped and is not used.",
+    "peak_rss_source": "ru_maxrss from wait4: true high-water mark of this child, bytes (Darwin)",
+    "sampling": "none; kernel-accounted child values, not sampled estimates"
+  },
+  "evidence": {
+    "nonce": "d5dba720735744df982c29bf0bdb3003",
+    "ok": false,
+    "failures": [
+      "boot did not complete: no nonce-bound 'PROP|sys.boot_completed=1' line",
+      "incomplete framework: no nonce-bound 'FRAMEWORK|service_activity=found' line",
+      "incomplete framework: no nonce-bound 'FRAMEWORK|system_server_pid=<pid>' line",
+      "timeout: the run was stopped by the deadline before the gate was satisfied"
+    ],
+    "diagnostics": [
+      "selinux_denial: 5505 occurrence(s); first at line 3149: [  444.315968][  T425] type=1400 audit(1793345822.148:197): avc:  denied  { write } for  comm=\"init\" name=\"error_report_end\" dev=\"tracefs\" ino=11639 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_bootreceiver_tracing:s0 tclass=dir permissive=1 bug=b/340399580",
+      "vendor_error: 2 occurrence(s); first at line 3206: [  456.038982][    T1] init: Command 'start vendor.audio-hal' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:44) took 0ms and failed: service vendor.audio-hal not found"
+    ],
+    "blocking_observations": [
+      "vendor_error"
+    ],
+    "stages": [
+      "kernel",
+      "first_stage_init",
+      "second_stage_init",
+      "zygote",
+      "system_server"
+    ],
+    "furthest_stage": "system_server",
+    "stage_evidence": {
+      "kernel": {
+        "line": 1,
+        "source": "log"
+      },
+      "first_stage_init": {
+        "line": 304,
+        "source": "log"
+      },
+      "second_stage_init": {
+        "line": 466,
+        "source": "log"
+      },
+      "zygote": {
+        "line": 2545,
+        "source": "log"
+      },
+      "system_server": {
+        "line": 20431,
+        "source": "log"
+      }
+    },
+    "completion": {
+      "boot_completed": null,
+      "service_activity": null,
+      "system_server_pid": null
+    },
+    "protocol": {
+      "accepted": [
+        {
+          "line": 1255,
+          "seq": 1,
+          "kind": "MARKER",
+          "value": "framework_probe_started"
+        }
+      ],
+      "rejected": [],
+      "foreign_nonces": {},
+      "first_line": 1255,
+      "last_seq": 1
+    },
+    "counts": {
+      "selinux_denial": 5505,
+      "vendor_error": 2
+    }
+  }
+}

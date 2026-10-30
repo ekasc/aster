@@ -15,8 +15,41 @@ emit MARKER framework_probe_started
 logcat -b all -v threadtime > /dev/hvc2 2>&1 &
 logcat_pid=$!
 trap 'kill "$logcat_pid" 2>/dev/null; wait "$logcat_pid" 2>/dev/null' EXIT
+
+# One bounded observation pass. Reports what the guest kernel and binder state
+# actually are; it never asserts boot completion and never signals a process.
+diag() {
+    dtag=$1
+    uptime=$(cut -d' ' -f1 /proc/uptime 2>/dev/null)
+    spid=$(pidof system_server 2>/dev/null)
+    printf '\nASTER-DIAG|%s|%s|%s|%s\n' "$nonce" $$ "$dtag" "uptime=${uptime:-unknown} boot_completed=$(getprop sys.boot_completed) system_server=${spid:-absent}"
+    for svc in activity package window SurfaceFlinger; do
+        out=$(timeout 5 service check "$svc" 2>&1)
+        printf 'ASTER-DIAG|%s|%s|%s|service=%s rc=%s %s\n' "$nonce" $$ "$dtag" "$svc" "$?" "$(printf '%s' "$out" | tr '\r\n' '  ')"
+    done
+    [ -n "$spid" ] || return 0
+    state=$(cut -d' ' -f3 "/proc/$spid/stat" 2>/dev/null)
+    threads=$(sed -n 's/^Threads:[[:space:]]*//p' "/proc/$spid/status" 2>/dev/null)
+    rss=$(sed -n 's/^VmRSS:[[:space:]]*//p' "/proc/$spid/status" 2>/dev/null)
+    printf 'ASTER-DIAG|%s|%s|%s|system_server state=%s threads=%s rss=%s\n' "$nonce" $$ "$dtag" "${state:-?}" "${threads:-?}" "${rss:-?}"
+    # Count threads blocked in each wait channel: the dominant blocking site.
+    for task in /proc/"$spid"/task/*; do
+        w=$(cat "$task/wchan" 2>/dev/null)
+        [ -n "$w" ] || w=run
+        printf '%s\n' "$w"
+    done | sort | uniq -c | sort -rn | head -8 | while read -r n where; do
+        printf 'ASTER-DIAG|%s|%s|%s|wchan count=%s where=%s\n' "$nonce" $$ "$dtag" "$n" "$where"
+    done
+    printf '\nASTER-DIAG|%s|%s|%s|snapshot_end\n' "$nonce" $$ "$dtag"
+}
+
+ticks=0
 while [ "$(getprop sys.boot_completed)" != 1 ]; do
     sleep 2
+    ticks=$((ticks + 1))
+    if [ $((ticks % 150)) -eq 0 ]; then
+        diag "t${ticks}"
+    fi
 done
 if ! logcat -b all -d -v threadtime; then
     emit FAIL logcat_capture_failed

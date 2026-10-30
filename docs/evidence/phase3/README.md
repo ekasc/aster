@@ -13,6 +13,9 @@ or APK execution is represented by these files.
   caller. It waits for the repeatedly crashing stock light HAL. The run reaches
   its 1800-second deadline, with 312180736 bytes peak host RSS. The light HAL's
   unconfigured privileged vsock bind is the next configuration correction.
+- `h4` supplies the light-service port and progresses beyond its failing bind,
+  but still times out after 1800.085110 seconds without ActivityManager. Peak
+  host RSS is 352960512 bytes and CPU utilization is 98.499% of one core.
 - `phase1-host.log` records 62 passing checks from the existing host interpreter
   binary. `phase1-device.log` records the unchanged installed app's 6/6 gate on
   the physical iPhone17. The device console's signal15 is requested collector
@@ -37,5 +40,5 @@ PYTHONPYCACHEPREFIX="$PWD/build/android/pycache" python3 tools/android/report.py
 
 Stage times are guest kernel uptime printed in serial output, not host boot
 latency. RSS and CPU come from the exact child process's wait4 measurements.
-The fourth 1800-second attempt, with an explicit unprivileged light-service
-vsock port, is still running and is not archived as a pass.
+All four completed attempts are archived as failures. No guest is currently
+running while further diagnostic capture is prepared.

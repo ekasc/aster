@@ -100,6 +100,21 @@ class BootConfigurationTests(unittest.TestCase):
         self.assertIn("file,id=hvc2,path={evidence_dir}/android.log", args)
         self.assertNotIn("hostfwd", " ".join(args))
 
+    def test_audit_experiment_is_explicit_and_has_no_duplicate_setting(self):
+        args = boot_config.arguments(
+            Path("/kernel"),
+            Path("/initrd"),
+            Path("/disk"),
+            Path("/console"),
+            1536,
+            "audit=1 binder.impl=rust",
+            kernel_audit="0",
+        )
+        cmdline = args[args.index("-append") + 1]
+        self.assertIn("audit=0", cmdline)
+        self.assertNotIn("audit=1", cmdline)
+        self.assertIn("binder.impl=rust", cmdline)
+
 
 if __name__ == "__main__":
     unittest.main()

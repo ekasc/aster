@@ -120,7 +120,7 @@ SELinux permissive mode does not bypass that capability check.
 The lead configured `androidboot.vsock_lights_port=7000`, retained the stock HAL,
 and started attempt `h4` with the same 1536 MiB and 1800-second limits. This is
 a candidate configuration correction, not yet a verified fix. No system image,
-Android API, or HAL implementation was replaced. The fourth run is active.
+Android API, or HAL implementation was replaced.
 
 The unchanged, installed Phase 1 app was launched with `--autorun` on the
 connected physical iPhone17. The gate passed 6/6. No Phase 1 rebuild was needed,
@@ -134,7 +134,17 @@ project have not been changed in this phase.
 The fourth run's stock light HAL reached the service-manager registration path
 at guest uptime 416.677973 seconds instead of aborting at the bind. That
 establishes progress past the diagnosed capability check, not a completed
-framework gate. The same bounded run continues.
+framework gate. The run subsequently timed out at 1800.085110 seconds, with
+1773.065561 CPU seconds and 352960512 bytes peak host RSS. Its full evidence is
+archived under `docs/evidence/phase3/h4`. ActivityManager was still unavailable.
+The zygote timing log records 402178 ms in preload, including 308658 ms in class
+preload. Later system_server startup remains incomplete, so increasing the
+deadline without further diagnostics is not the next action.
+
+The lead added an explicit kernel-audit toggle for a controlled audit-overhead
+experiment and a reproducible completed-run archiver. The next attempt will
+retain the same RAM bound and stock Android code while collecting guest thread
+and service diagnostics. No fifth guest is running yet.
 
 The existing prebuilt Phase 1 host test binary was executed without rebuilding
 the interpreter. All 62 checks passed. The existing three Android kernel-probe
