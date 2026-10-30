@@ -102,6 +102,27 @@ That is Binder plus a package manager inside a guest we control, without any
 host daemon. It is not an Android boot: no Android init, zygote or framework
 ran. Evidence is in `docs/evidence/phase3/linux-gki/`.
 
+## Waydroid container route (in progress)
+
+Two prebuilt, redistributable ARM64 Waydroid images are pinned and verified in
+`docs/evidence/phase3/waydroid/manifest.json`:
+
+| Image | Bytes | SHA-256 |
+|---|---:|---|
+| `lineage-20.0-20260927-VANILLA-waydroid_arm64-system.zip` (system.img) | 1,994,985,472 | `5fb8179e…dcfc53a7` |
+| `lineage-20.0-20260927-MAINLINE-waydroid_arm64-vendor.zip` (vendor.img) | 421,634,048 | `20a49c11…c22e747ae` |
+
+Both are ext4 and mounted successfully inside the Alpine-on-GKI guest. The
+system image is Android system-as-root with `/system/system`, `/apex` and
+`/system/system/bin/init`; the vendor image carries `/vendor/waydroid.prop`,
+20 vendor init rc files, 6 Waydroid rc files and three gralloc implementations.
+
+First container attempt started Android init as PID 1 of a new PID/mount
+namespace and it exited with status 1 before logging. That is the current
+blocker, and it is the expected shape: Waydroid normally supplies mounts, node
+creation, properties and LXC configuration before init runs. The exact serial
+transcript is `docs/evidence/phase3/waydroid/boot-attempt1-serial.log`.
+
 ## Current blocker and tested reasoning
 
 The tested QEMU build exposes no vsock device:

@@ -100,8 +100,18 @@ def build_initramfs(minirootfs, modules, init_script):
         ("newroot/dev", 0o040755, b""),
     ]
     entries.extend(minirootfs_entries(minirootfs))
+    seen = {name for name, _mode, _data in entries}
     for name, data in modules.items():
-        entries.append(("modules/" + name, 0o100644, data))
+        parent = name.rsplit("/", 1)[0]
+        parts = parent.split("/")
+        for index in range(1, len(parts) + 1):
+            directory = "/".join(parts[:index])
+            if directory not in seen:
+                seen.add(directory)
+                entries.append((directory, 0o040755, b""))
+        if name not in seen:
+            seen.add(name)
+            entries.append((name, 0o100644, data))
     entries.append(("init", 0o100755, init_script.read_bytes()))
     entries.append(("TRAILER!!!", 0, b""))
     return gzip.compress(newc(entries), mtime=0)
@@ -132,16 +142,24 @@ def module_archive_entries(path):
         ).stdout
     required = ("virtio_pci.ko", "virtio_blk.ko")
     preferred = (
-        "virtio_mmio.ko", "virtio_rng.ko", "virtio_input.ko",
-        "virtio-gpu.ko", "virtio_console.ko",
+        "virtio_mmio.ko",
+        "virtio_rng.ko",
+        "virtio_input.ko",
+        "virtio-gpu.ko",
+        "virtio_console.ko",
     )
     found = {}
     wanted = required + preferred
     for name, _mode, data in read_cpio(raw):
+        if name.startswith("./"):
+            name = name[2:]
         base = name.rsplit("/", 1)[-1]
-        if base in wanted and base not in found:
+        if name.startswith("lib/modules/"):
+            found[name] = data
+        elif base in wanted and base not in found:
             found[base] = data
-    missing = [name for name in required if name not in found]
+    missing = [name for name in required
+               if not any(key.endswith("/" + name) or key == name for key in found)]
     if missing:
         raise ValueError(f"module archive lacks required {missing}")
     return found
@@ -163,6 +181,13 @@ def main():
     parser.add_argument("--output", type=Path, default=WORK)
     parser.add_argument("--memory-mb", type=int, default=1024)
     parser.add_argument("--timeout", type=int, default=300)
+    parser.add_argument(
+        "--disk",
+        action="append",
+        default=[],
+        type=Path,
+        help="Extra raw disk attached as vdb, vdc, ... (repeatable)",
+    )
     parser.add_argument(
         "--qemu", type=Path, default=ROOT / "build/qemu/build-tci5/qemu-system-aarch64"
     )
@@ -208,6 +233,7 @@ def main():
             "console=ttyAMA0 rdinit=/init panic=-1",
         ],
         "timeout_seconds": args.timeout,
+        "extra_disks": [str(path) for path in args.disk],
         "stop_on_completion": False,
         "input_paths": [str(args.kernel.resolve()), str(initramfs)],
         "hashes": {
@@ -216,6 +242,15 @@ def main():
         },
         "evidence_root": str(output / "runs"),
     }
+    for index, disk in enumerate(args.disk):
+        config["args"] += [
+            "-drive",
+            f"if=none,id=extra{index},format=raw,readonly=on,file={disk.resolve()}",
+            "-device",
+            f"virtio-blk-pci-non-transitional,drive=extra{index}",
+        ]
+        config["input_paths"].append(str(disk.resolve()))
+        config["hashes"][str(disk.resolve())] = sha256(disk)
     (output / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     print(
         json.dumps(

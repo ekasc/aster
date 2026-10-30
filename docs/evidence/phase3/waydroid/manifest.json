@@ -1,0 +1,26 @@
+{
+  "source": {
+    "system": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20260927-VANILLA-waydroid_arm64-system.zip",
+    "vendor": "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-20.0-20260927-MAINLINE-waydroid_arm64-vendor.zip"
+  },
+  "sha256": {
+    "lineage-system.zip": "5fb8179ed4455f45919c5a2bfbfdd1591619295994ad321217f03bb1dcfc53a7",
+    "lineage-vendor.zip": "20a49c11961a5ac7295320f578764eeab3c982b217f1bfde7473adfc22e747ae"
+  },
+  "image_bytes": {
+    "system.img": 1994985472,
+    "vendor.img": 421634048
+  },
+  "filesystem": "ext4 (verified by superblock magic and successful guest mount)",
+  "observed": {
+    "system_image_root": "Android system-as-root with /system/system, /apex, /bin",
+    "init": "/system/system/bin/init present",
+    "waydroid_prop": "/vendor/waydroid.prop present",
+    "waydroid_rc_files": 6,
+    "vendor_rc_count": 20,
+    "gralloc_impls": 3,
+    "halium_libhybris_libs": 0
+  },
+  "boot_attempt_1": "Android init executed as namespace PID1 and exited status 1 before logging",
+  "framework_verified": false
+}
