@@ -36,7 +36,7 @@ class LinuxGuestTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     list(linux_guest.safe_members(archive))
 
-    def test_initramfs_places_minirootfs_under_newroot_with_exec_bits(self):
+    def test_initramfs_roots_minirootfs_at_slash_with_exec_bits(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             tar = root / "mini.tar"
@@ -53,8 +53,8 @@ class LinuxGuestTests(unittest.TestCase):
             entries = {
                 name: (mode, body) for name, mode, body in linux_guest.read_cpio(data)
             }
-            self.assertEqual(entries["newroot/etc/alpine-release"][1], b"3.20.3\n")
-            self.assertEqual(entries["newroot/bin/busybox"][0], 0o100755)
+            self.assertEqual(entries["etc/alpine-release"][1], b"3.20.3\n")
+            self.assertEqual(entries["bin/busybox"][0], 0o100755)
             self.assertEqual(entries["init"][0], 0o100755)
 
     def test_module_archive_selection_reads_lz4_cpio(self):
@@ -63,6 +63,7 @@ class LinuxGuestTests(unittest.TestCase):
             cpio = linux_guest.newc(
                 [
                     ("lib/modules/virtio_blk.ko", 0o100644, b"BLK"),
+                ("lib/modules/virtio_pci.ko", 0o100644, b"PCI"),
                     ("lib/modules/virtio_mmio.ko", 0o100644, b"MMIO"),
                     ("lib/modules/virtio_rng.ko", 0o100644, b"RNG"),
                     ("lib/modules/virtio_input.ko", 0o100644, b"IN"),
@@ -77,7 +78,7 @@ class LinuxGuestTests(unittest.TestCase):
             )
             modules = linux_guest.module_archive_entries(packed)
             self.assertEqual(modules["virtio_blk.ko"], b"BLK")
-            self.assertNotIn("virtio_pci.ko", modules)
+            self.assertEqual(modules["virtio_pci.ko"], b"PCI")
 
     def test_module_archive_reports_what_is_missing(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -89,11 +90,11 @@ class LinuxGuestTests(unittest.TestCase):
                     ("TRAILER!!!", 0, b""),
                 ]
             )
-            subprocess.run(
-                ["lz4", "-l", "-c"], input=cpio, stdout=packed.open("wb"), check=True
-            )
-            with self.assertRaises(ValueError):
+            with packed.open("wb") as sink:
+                subprocess.run(["lz4", "-l", "-c"], input=cpio, stdout=sink, check=True)
+            with self.assertRaises(ValueError) as caught:
                 linux_guest.module_archive_entries(packed)
+            self.assertIn("virtio_pci.ko", str(caught.exception))
 
 
 if __name__ == "__main__":
