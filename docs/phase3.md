@@ -51,6 +51,17 @@ RSS is the exact host QEMU process high-water mark from wait4, not configured
 guest RAM, iPhone memory use, or an Android completion-time estimate. The guest
 kernel timestamps in stage reports are labelled separately from host wall time.
 
+## Status of the Cuttlefish path
+
+Four bounded host boots reached Android second-stage init and system_server but
+never ActivityManager. The missing piece is not tuning: this QEMU build has
+`CONFIG_AF_VSOCK` and every `CONFIG_VHOST*` undefined, and `-device help` lists
+no vsock device. Android's sensors HAL (`android.hardware.sensors-service.multihal`)
+aborts with `Could not connect to sensors control: No such device`, and
+`system_server` stops issuing HAL lookups immediately after the light service.
+`tools/android/preflight.py` now answers this in two seconds instead of one
+30-minute boot.
+
 ## Verified Linux foundation for the fallback path
 
 Because the Cuttlefish HAL contract cannot be satisfied here, the supported
