@@ -1,0 +1,311 @@
+{
+  "schema": "aster.android.artifacts/v1",
+  "description": "Pinned AOSP Cuttlefish ARM64 phone image bundle for upstream QEMU virt. The manifest is the only source of artifact identity; no hash is guessed. Upstream publishes size, ETag, MD5 and CRC32C in GCS object headers. SHA-256 is computed locally from the first verified download and pinned here.",
+  "budgets": {
+    "max_download_bytes": 2147483648,
+    "max_new_disk_bytes": 6442450944,
+    "free_floor_bytes": 3221225472
+  },
+  "bundles": [
+    {
+      "id": "cf-arm64-only-phone-16644040",
+      "description": "AOSP Cuttlefish arm64-only phone, userdebug, Android 17 (SDK 37), with its own GKI 6.12 kernel and virtual-device vendor ramdisk.",
+      "branch": "aosp-android-latest-release",
+      "target": "aosp_cf_arm64_only_phone-userdebug",
+      "build_id": "16644040",
+      "source_revisions": {
+        "device/google/cuttlefish": "283645aacf6cdb56cc31a9362f54d412dbc132a1",
+        "platform/system/core": "545d2487e38192a2ce25040897ced877cf6b4f53"
+      },
+      "build_fingerprint": "generic/aosp_cf_arm64_only_phone/vsoc_arm64_only:17/CP2A.260605.016/16644040:userdebug/test-keys",
+      "android_release": "17",
+      "android_sdk": 37,
+      "build_date_utc": "2026-10-18T15:06:12Z",
+      "security_patch": "2026-06-05",
+      "kernel": {
+        "version": "6.12.74-android16-6-g3ec022196c4e-ab15076761-4k",
+        "build_id": "15076761",
+        "source_commit_short": "3ec022196c4e",
+        "source_url": "https://android.googlesource.com/kernel/common/+/refs/heads/android16-6.12",
+        "device_modules": "vendor_boot.img vendor ramdisk (lib/modules: virtio_pci, virtio_blk, virtio-gpu, virtio_input, virtio-rng, virtio_console, virtio_net, vmw_vsock_virtio_transport)"
+      },
+      "archive": {
+        "artifact": "aosp_cf_arm64_only_phone-img-16644040.zip",
+        "page_url": "https://ci.android.com/builds/submitted/16644040/aosp_cf_arm64_only_phone-userdebug/latest/aosp_cf_arm64_only_phone-img-16644040.zip",
+        "download_resolver": "ci_artifact_viewer_jsvariables_v1",
+        "storage_path": "/android-build/builds/aosp-android-latest-release-linux-aosp_cf_arm64_only_phone-userdebug/16644040/3db6dc89ddb6a2679425cb1b682cb0a891c9f2ffc3a1c16e112f263c3ef762e1/1/aosp_cf_arm64_only_phone-img-16644040.zip",
+        "size": 1101174958,
+        "etag": "21542c7cbc096a76d91b723c17ea391f",
+        "last_modified": "Sun, 18 Oct 2026 17:27:08 GMT",
+        "md5_base64": "IVQsfLwJanbZG3I8F+o5Hw==",
+        "crc32c_base64": "nyaUow==",
+        "sha256": "a9314183f3cf4d15a0a2121a85f8300ca7990788c52474d322c6fe9320b40802",
+        "sha256_provenance": "Computed locally from the completed download on 2026-10-30. Upstream does not publish a SHA-256 for this artifact; the pinned MD5 and CRC32C are the digests in the upstream GCS object headers. The MD5 was recomputed and matched before this SHA-256 was recorded; CRC32C is recorded but not recomputed because the tool has no CRC32C implementation.",
+        "content_type": "application/zip"
+      },
+      "members": [
+        {
+          "name": "boot.img",
+          "size": 67108864,
+          "crc32": "bd94e80a",
+          "role": "kernel (42,031,616 bytes) and empty generic ramdisk; Android header v4"
+        },
+        {
+          "name": "init_boot.img",
+          "size": 8388608,
+          "crc32": "e3ba3b5d",
+          "role": "generic first-stage ramdisk (2,992,408 bytes, LZ4 legacy)"
+        },
+        {
+          "name": "vendor_boot.img",
+          "size": 67108864,
+          "crc32": "093e631f",
+          "role": "vendor ramdisk (18,816,074 bytes, LZ4 legacy), DTB stub, ramdisk table and bootconfig"
+        },
+        {
+          "name": "super.img",
+          "size": 1746554644,
+          "crc32": "03021018",
+          "role": "Android sparse super; expands to 8,589,934,592 bytes with system_a, system_b, vendor_a, product_a, system_ext_a, odm_a, vendor_dlkm_a, system_dlkm_a, odm_dlkm_a"
+        },
+        {
+          "name": "userdata.img",
+          "size": 2249012,
+          "crc32": "919ec5ba",
+          "role": "Android sparse F2FS userdata; expands to 8,589,934,592 bytes"
+        },
+        {
+          "name": "vbmeta.img",
+          "size": 12288,
+          "crc32": "4739e0bf",
+          "role": "AVB0 vbmeta for boot/init_boot/vendor_boot/super"
+        },
+        {
+          "name": "vbmeta_system.img",
+          "size": 4096,
+          "crc32": "5bef7b47",
+          "role": "AVB0 vbmeta for system and system_ext"
+        },
+        {
+          "name": "vbmeta_system_dlkm.img",
+          "size": 4096,
+          "crc32": "bc3e62f1",
+          "role": "AVB0 vbmeta for system_dlkm"
+        },
+        {
+          "name": "vbmeta_vendor_dlkm.img",
+          "size": 4096,
+          "crc32": "1fd05e3d",
+          "role": "AVB0 vbmeta for vendor_dlkm"
+        },
+        {
+          "name": "android-info.txt",
+          "size": 83,
+          "crc32": "b3159ad7",
+          "role": "fastboot/config metadata; not used for boot"
+        },
+        {
+          "name": "fastboot-info.txt",
+          "size": 252,
+          "crc32": "1fa5f537",
+          "role": "fastboot metadata; not used for boot"
+        },
+        {
+          "name": "cuttlefish_example_custom.img",
+          "size": 1048576,
+          "crc32": "ebbb6460",
+          "role": "optional custom partition example; not used for boot"
+        }
+      ],
+      "required_members": [
+        "boot.img",
+        "init_boot.img",
+        "vendor_boot.img",
+        "super.img",
+        "userdata.img",
+        "vbmeta.img",
+        "vbmeta_system.img",
+        "vbmeta_system_dlkm.img",
+        "vbmeta_vendor_dlkm.img"
+      ],
+      "optional_members": [
+        "android-info.txt",
+        "fastboot-info.txt",
+        "cuttlefish_example_custom.img"
+      ],
+      "partition_plan": [
+        {
+          "label": "boot",
+          "member": "boot.img",
+          "ab": true
+        },
+        {
+          "label": "init_boot",
+          "member": "init_boot.img",
+          "ab": true
+        },
+        {
+          "label": "vendor_boot",
+          "member": "vendor_boot.img",
+          "ab": true
+        },
+        {
+          "label": "super",
+          "member": "super.img",
+          "sparse": true
+        },
+        {
+          "label": "userdata",
+          "member": "userdata.img",
+          "sparse": true
+        },
+        {
+          "label": "metadata",
+          "generated": "blank",
+          "size": 67108864
+        },
+        {
+          "label": "misc",
+          "generated": "blank",
+          "size": 1048576
+        },
+        {
+          "label": "vbmeta",
+          "member": "vbmeta.img",
+          "ab": true
+        },
+        {
+          "label": "vbmeta_system",
+          "member": "vbmeta_system.img",
+          "ab": true
+        },
+        {
+          "label": "vbmeta_system_dlkm",
+          "member": "vbmeta_system_dlkm.img",
+          "ab": true
+        },
+        {
+          "label": "vbmeta_vendor_dlkm",
+          "member": "vbmeta_vendor_dlkm.img",
+          "ab": true
+        }
+      ],
+      "bootconfig": {
+        "fstab_suffix": "cf.f2fs.hctr2",
+        "slot_suffix": "_a",
+        "hardware": "cutf_cvm",
+        "boot_devices": "4010000000.pcie",
+        "selinux_default": "permissive",
+        "settings": {
+          "androidboot.force_normal_boot": "1",
+          "androidboot.verifiedbootstate": "orange",
+          "androidboot.flash.locked": "0",
+          "androidboot.vbmeta.device_state": "unlocked",
+          "androidboot.serialconsole": "1",
+          "androidboot.console": "ttyAMA0",
+          "androidboot.serialno": "astercf00000001",
+          "androidboot.vsock_lights_port": "7000",
+          "androidboot.ddr_size": "2048MB",
+          "androidboot.lcd_density": "320",
+          "androidboot.setupwizard_mode": "DISABLED",
+          "androidboot.enable_bootanimation": "0",
+          "androidboot.enable_confirmationui": "0",
+          "androidboot.hw_timeout_multiplier": "50",
+          "androidboot.hypervisor.vm.supported": "0",
+          "androidboot.hypervisor.protected_vm.supported": "0",
+          "androidboot.audio.tinyalsa.ignore_output": "true",
+          "androidboot.audio.tinyalsa.simulate_input": "true",
+          "androidboot.vendor.apex.com.android.hardware.keymint": "com.android.hardware.keymint.rust_nonsecure",
+          "androidboot.vendor.apex.com.android.hardware.gatekeeper": "com.android.hardware.gatekeeper.nonsecure",
+          "androidboot.vendor.apex.com.android.hardware.graphics.composer": "com.android.hardware.graphics.composer.drm_hwcomposer",
+          "androidboot.vendor.apex.com.google.emulated.camera.provider.hal": "com.google.emulated.camera.provider.hal",
+          "androidboot.hardware.gralloc": "minigbm",
+          "androidboot.hardware.hwcomposer": "drm",
+          "androidboot.hardware.hwcomposer.display_finder_mode": "drm",
+          "androidboot.hardware.hwcomposer.display_framebuffer_format": "rgba",
+          "androidboot.hardware.egl": "angle",
+          "androidboot.hardware.vulkan": "pastel",
+          "androidboot.opengles.version": "196609",
+          "androidboot.cpuvulkan.version": "4198400"
+        }
+      },
+      "qemu": {
+        "machine": "virt,gic-version=3",
+        "cpu": "max",
+        "accel": "tcg,thread=single,tb-size=32",
+        "smp": 1,
+        "memory_mb": 4096,
+        "args_template": [
+          "-M",
+          "virt,gic-version=3",
+          "-cpu",
+          "max",
+          "-accel",
+          "tcg,thread=single,tb-size=32",
+          "-smp",
+          "1",
+          "-m",
+          "{memory_mb}",
+          "-display",
+          "none",
+          "-monitor",
+          "none",
+          "-serial",
+          "stdio",
+          "-nic",
+          "none",
+          "-no-reboot",
+          "-snapshot",
+          "-kernel",
+          "{kernel}",
+          "-initrd",
+          "{initrd}",
+          "-append",
+          "{cmdline}",
+          "-drive",
+          "if=none,id=android,format=raw,file={disk}",
+          "-device",
+          "virtio-blk-pci-non-transitional,drive=android,bootindex=1",
+          "-device",
+          "virtio-rng-pci-non-transitional",
+          "-device",
+          "virtio-keyboard-pci",
+          "-device",
+          "virtio-mouse-pci",
+          "-device",
+          "virtio-gpu-pci"
+        ],
+        "notes": [
+          "Cuttlefish's qemu_cli backend uses -M virt with PCI virtio devices, a GPT composite disk, Android boot images and U-Boot. This plan keeps the same board, devices, disk labels and bootconfig semantics but loads the kernel and concatenated ramdisk directly with -kernel/-initrd, so U-Boot and uboot_env are not required.",
+          "The current TCI build was configured with --disable-vnc --disable-opengl --disable-gtk --disable-sdl. virtio-gpu-pci is built and provides a headless 2D DRM output; there is no VNC or host GL fallback in this binary.",
+          "Cuttlefish guest services normally use virtio-console ports backed by host processes. This plan selects the nonsecure keymint and gatekeeper APEXes and omits those ports, so host processes are not required, but the corresponding HALs are unbacked and may log failures."
+        ]
+      },
+      "license": {
+        "expression": "Apache-2.0 AND GPL-2.0-only AND LGPL-2.1-only AND BSD-3-Clause AND MIT",
+        "provenance": "Pure AOSP aosp_cf_arm64_only_phone-userdebug (no google_apis, no Play, no vendor proprietary blobs). Android platform is Apache-2.0; the GKI kernel is GPL-2.0; U-Boot is not included in this zip and is not used by this plan.",
+        "aosp_licenses": "https://source.android.com/docs/setup/about/licenses",
+        "notice_source": "The matching target_files zip (2,223,018,844 bytes) carries the complete NOTICE and license texts; it was not downloaded under the disk budget. Redistribution must include those notices.",
+        "build_info": "https://ci.android.com/builds/submitted/16644040/aosp_cf_arm64_only_phone-userdebug/latest/BUILD_INFO",
+        "caveats": [
+          "userdebug build signed with AOSP test-keys; not a production or CTS-certified device image.",
+          "No Google applications or Google Play services are present.",
+          "Kernel, module, ANGLE, SwiftShader, and other bundled components carry their own source and notice obligations."
+        ]
+      },
+      "budget": {
+        "estimated_prepared_bytes": 2400000000,
+        "estimated_peak_bytes": 3600000000
+      },
+      "blockers": [
+        "The Android 15 GKI/modules build 12996908 (kernel 6.6.66-android15-8-g807ce3b4f02f-ab12996908-4k) is not compatible with this Android 17 vendor image: the vendor ramdisk modules, fstab suffix, APEX selections and VINTF manifest are built for the 6.12.74-android16 kernel. No public Cuttlefish img zip exists for build 12996908, so this bundle supplies its own matched GKI 6.12 kernel and modules.",
+        "No real boot has been executed. The prepared artifacts only make the inputs coherent and inspectable.",
+        "androidboot.boot_devices=4010000000.pcie is the Linux Cuttlefish value for upstream QEMU's highmem PCIe ECAM. Cuttlefish's macOS fork uses 3f000000.pcie; this plan uses upstream QEMU, not that fork.",
+        "The TCI build has no VNC, OpenGL, virgl or gfxstream. guest_swiftshader needs only virtio-gpu 2D plus guest ANGLE/SwiftShader, which the system image contains, but a headless DRM output has not been proven to satisfy SurfaceFlinger.",
+        "Cuttlefish resolves hwcomposer=auto to ranchu for guest_swiftshader. This plan selects drm_hwcomposer instead because upstream QEMU exposes virtio-gpu DRM/KMS and no goldfish or gfxstream device; the drm_hwcomposer and ANGLE/SwiftShader APEXes are present, but this combination is untested.",
+        "virtio-console host services (keymaster/gatekeeper/sensors/logcat) are not started. Nonsecure guest APEX variants are selected; unbacked HALs may fail without blocking boot, which is untested.",
+        "The guest evidence hook that emits ASTER-BOOT|... is owned by the lead and is not part of these artifacts."
+      ]
+    }
+  ]
+}

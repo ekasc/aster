@@ -1,0 +1,12 @@
+Launched application with dev.ekas.aster bundle identifier.
+Waiting for the application to terminate…
+[aster] engine=Aster AArch64 interpreter (no JIT) guest_page=4096 host_page=16384 device=iPhone18,3 os=27.0 ram=7.49 GB
+[policy] map_jit=denied (errno 1) rwx=allowed rw_to_rx=allowed
+[gate] hello PASS status=exit 0 exit=0 fault=0 insns=1002695 wall_ms=12.17 mips=82.4 peak_mb=37.9 msg=guest exited with code 0 [status 0]
+[gate] demo PASS status=exit 0 exit=0 fault=0 insns=474313 wall_ms=7.02 mips=67.6 peak_mb=43.0 msg=guest exited with code 0 [status 0]
+[gate] threads PASS status=exit 0 exit=0 fault=0 insns=823892 wall_ms=29.25 mips=28.2 peak_mb=43.8 msg=guest exited with code 0 [status 0]
+[gate] fp PASS status=exit 0 exit=0 fault=0 insns=697 wall_ms=0.02 mips=40.7 peak_mb=43.8 msg=guest exited with code 0 [status 0]
+[gate] fault_unmapped PASS status=unmapped exit=0 fault=1 insns=113 wall_ms=0.01 mips=14.7 peak_mb=44.1 msg=guest fault: unmapped at pc 0x400000dc |  [status -1]
+[gate] fault_rodata PASS status=permissions exit=0 fault=2 insns=362 wall_ms=0.01 mips=36.5 peak_mb=44.1 msg=guest fault: permissions at pc 0x400000d4 |  [status -1]
+[gate] summary 6/6
+App terminated due to signal 15.

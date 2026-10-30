@@ -84,7 +84,11 @@ docs/      constraints, architecture, Phase 1 evidence, Phase 2 plan
 
 ## Next step
 
-Reproduce the physical Linux boot with `docs/phase2-build.md`. Select a matched
-Android ARM64 kernel, ramdisk, vendor, and partition-image bundle for the next
-host gate. A GSI alone is insufficient. See `docs/android-host.md` for the
-verified kernel dependencies and the remaining boot stages.
+Phase 3 host bring-up uses a pinned complete AOSP Cuttlefish bundle. First-stage
+mounts, second-stage init, and zygote launch have executed under TCI, but Android
+framework completion is not yet verified. See `docs/phase3-build.md` for the
+reproducible configuration and `docs/phase3-work.md` for current evidence.
+
+Complete the Android host framework gate before attempting the same environment
+on the phone. The earlier Linux device reproduction remains in
+`docs/phase2-build.md`; the Android kernel-only probe is in `docs/android-host.md`.

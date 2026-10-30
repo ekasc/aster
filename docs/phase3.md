@@ -1,0 +1,85 @@
+# Phase 3 Android boot status
+
+The phase is incomplete. Real AOSP Android init, partition mounts, userdata,
+zygote, SurfaceFlinger startup, and a system_server Binder caller have executed
+under host QEMU TCI. No run has yet verified `sys.boot_completed=1` together
+with a working ActivityManager service. No Android iPhone or APK test has run.
+
+The current fourth host attempt is testing the corrected light-service port.
+The existing iOS engine remains unchanged until the host framework gate passes.
+
+## Reproduction and artifacts
+
+[phase3-build.md](phase3-build.md) contains the preparation, boot, evidence,
+and regression commands. `tools/android/artifacts-v1.json` pins the complete
+AOSP Cuttlefish ARM64-only phone bundle, build 16644040, Android 17, and matching
+GKI 6.12.74 kernel and modules. The archive is 1101174958 bytes and its SHA-256 is
+`a9314183f3cf4d15a0a2121a85f8300ca7990788c52474d322c6fe9320b40802`.
+
+The previous Android 15 GKI 6.6.66 probe remains intact. Its modules do not match
+the selected bundle's kernel ABI. No full AOSP checkout, new host package,
+secondary machine, or host OpenCode CLI session was used.
+
+## Executed host attempts
+
+The preserved [evidence](evidence/phase3/) includes complete compressed serial
+and Android logs, checksums, commands, original measurements, current-parser
+stage reports, and guest-console submissions. Every archived framework verdict
+is false. A zero QEMU exit code is not accepted as completion.
+
+The attempts used one guest CPU, TCI, 1536 MiB guest RAM, a 32 MiB translation
+buffer, snapshot writes to a verified GPT disk, guest SwiftShader, and 2D
+virtio-GPU. SELinux was permissive. Networking and unauthenticated TCP ADB were
+disabled. No guest GPU acceleration or Metal integration is claimed.
+
+- `h1` failed after 59.971495 wall seconds at APEX bootstrap. The bundle needed
+  an explicit selection between its two camera-provider APEX variants.
+- `h2` fixed that selection and timed out after 600.187618 seconds. It also
+  exposed a console-probe heredoc failure before the early shell had a temporary
+  directory. The corrected probe uses a quoted in-memory local su command.
+- `h3` ran the real probe, reached system_server, and timed out after 1800.077487
+  seconds. Its peak host RSS was 312180736 bytes. Measured child CPU time was
+  1792.178080 seconds, or 99.561% of one core over the run. It was not an OOM
+  termination. system_server waited for the repeatedly crashing light HAL.
+
+RSS is the exact host QEMU process high-water mark from wait4, not configured
+guest RAM, iPhone memory use, or an Android completion-time estimate. The guest
+kernel timestamps in stage reports are labelled separately from host wall time.
+
+## Current blocker and tested reasoning
+
+The matching [light HAL source](https://android.googlesource.com/device/google/cuttlefish/+/283645aacf6cdb56cc31a9362f54d412dbc132a1/guest/hals/light/lights.rs)
+reads `ro.boot.vsock_lights_port` and defaults to zero. Its
+[init service](https://android.googlesource.com/device/google/cuttlefish/+/283645aacf6cdb56cc31a9362f54d412dbc132a1/guest/hals/light/lights-cuttlefish.rc)
+runs as nobody. The matching
+[kernel bind implementation](https://android.googlesource.com/kernel/common/+/3ec022196c4e/net/vmw_vsock/af_vsock.c)
+requires CAP_NET_BIND_SERVICE for reserved vsock ports and returns EACCES
+otherwise. The actual guest reported that Permission denied abort repeatedly.
+
+`boot_config.py` now supplies `androidboot.vsock_lights_port=7000`. No HAL or
+Android API implementation was replaced. Attempt `h4` is verifying this candidate
+configuration fix with the same guest RAM and 1800-second deadline. Further
+Cuttlefish host-service dependencies remain possible and are not assumed solved.
+
+## Delegation and verification
+
+Both implementation workers were created with T3Code `delegate_task`, selecting
+provider `opencode` and model `opencode-go/deepseek-v4.1-flash` explicitly:
+
+- Artifact preparation implemented `images.py`, `artifacts-v1.json`, and 32
+  preparation tests. It downloaded and prepared the coherent image set without
+  running QEMU or touching the phone.
+- Validation implemented `run.py`, `boot_evidence.py`, and 66 initial tests for
+  nonce-bound boot evidence, provenance, measurement, deadlines, and teardown.
+  It used dummy child processes, not a real Android boot.
+
+The lead inspected their output, fixed issues exposed by real boots, implemented
+the host configuration and console probe, and ran all real guest and device
+tests. The integrated Android tooling suite currently passes 117 tests. Four
+existing device-runner tests also pass. The unchanged Phase 1 host binary passes
+62 checks, and the installed physical iPhone app passes its 6/6 regression gate.
+
+Next, verify that the real light HAL registers and that Android's framework
+gate completes. Only then integrate this configuration into the existing
+single-shot iPhone engine and begin unmodified APK installation and Activity
+execution. The Alpine device baseline is not an Android performance prediction.

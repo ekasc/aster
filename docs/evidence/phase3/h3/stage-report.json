@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "nonce": "a91946166c1a49f39eb226a411732c78",
+  "framework_verified": false,
+  "furthest_stage": "system_server",
+  "stage_timing_scope": "guest kernel uptime where printed, not host boot latency",
+  "stages": {
+    "kernel": {
+      "line": 1,
+      "serial_text": "[    0.000000][    T0] Booting Linux on physical CPU 0x0000000000 [0x000f0510]",
+      "guest_kernel_uptime_seconds": 0.0
+    },
+    "first_stage_init": {
+      "line": 304,
+      "serial_text": "[   14.449203][    T1] init: init first stage started!",
+      "guest_kernel_uptime_seconds": 14.449203
+    },
+    "second_stage_init": {
+      "line": 466,
+      "serial_text": "[   23.703050][    T1] init: init second stage started!",
+      "guest_kernel_uptime_seconds": 23.70305
+    },
+    "zygote": {
+      "line": 2528,
+      "serial_text": "[  317.504504][    T1] init: starting service 'zygote'...",
+      "guest_kernel_uptime_seconds": 317.504504
+    },
+    "system_server": {
+      "line": 18986,
+      "serial_text": "[ 1280.912948][  T375] servicemanager: Caller(pid=1990,uid=1000,sid=u:r:system_server:s0) Found android.hardware.power.stats.IPowerStats/default in device VINTF manifest.",
+      "guest_kernel_uptime_seconds": 1280.912948
+    }
+  },
+  "measurement": {
+    "pid": 54914,
+    "exit_code": 0,
+    "term_signal": null,
+    "timed_out": true,
+    "runner_stop_requested": false,
+    "cooperative_stop": true,
+    "escalated_to_kill": false,
+    "reaped": true,
+    "wall_seconds": 1800.077487,
+    "cpu_seconds": 1792.17808,
+    "cpu_percent_of_one_core": 99.561,
+    "peak_rss_bytes": 312180736,
+    "rusage_scope": "os.wait4 rusage for this QEMU host process; guest kernel and userspace execute within it. resource.getrusage(RUSAGE_CHILDREN) is cumulative over every child this process reaped and is not used.",
+    "peak_rss_source": "ru_maxrss from wait4: true high-water mark of this child, bytes (Darwin)",
+    "sampling": "none; kernel-accounted child values, not sampled estimates"
+  },
+  "failures": [
+    "boot did not complete: no nonce-bound 'PROP|sys.boot_completed=1' line",
+    "incomplete framework: no nonce-bound 'FRAMEWORK|service_activity=found' line",
+    "incomplete framework: no nonce-bound 'FRAMEWORK|system_server_pid=<pid>' line",
+    "timeout: the run was stopped by the deadline before the gate was satisfied"
+  ],
+  "diagnostics": [
+    "selinux_denial: 5135 occurrence(s); first at line 3159: [  433.686175][  T427] type=1400 audit(1793343913.324:198): avc:  denied  { write } for  comm=\"init\" name=\"error_report_end\" dev=\"tracefs\" ino=11713 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_bootreceiver_tracing:s0 tclass=dir permissive=1 bug=b/340399580",
+    "vendor_error: 2 occurrence(s); first at line 3218: [  444.175840][    T1] init: Command 'start vendor.audio-hal' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:44) took 0ms and failed: service vendor.audio-hal not found"
+  ],
+  "completion": {
+    "boot_completed": null,
+    "service_activity": null,
+    "system_server_pid": null
+  }
+}

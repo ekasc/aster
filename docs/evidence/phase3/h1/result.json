@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "passed": false,
+  "android_booted": false,
+  "nonce": "18d6b5db248e46aba8fcad05717e4328",
+  "evidence_dir": "/Users/ekassinghchhabra/Projects/aster/build/android/integration/h1/runs/run-20261030-064217-18d6b5db",
+  "transcript": "/Users/ekassinghchhabra/Projects/aster/build/android/integration/h1/runs/run-20261030-064217-18d6b5db/serial.log",
+  "config_path": "/Users/ekassinghchhabra/Projects/aster/build/android/integration/h1/config.json",
+  "completed_utc": "2026-10-30T06:43:17Z",
+  "timeout_seconds": 600,
+  "measurement": {
+    "pid": 27379,
+    "exit_code": 0,
+    "term_signal": null,
+    "timed_out": false,
+    "runner_stop_requested": false,
+    "cooperative_stop": false,
+    "escalated_to_kill": false,
+    "reaped": true,
+    "wall_seconds": 59.971495,
+    "cpu_seconds": 58.55329,
+    "cpu_percent_of_one_core": 97.635,
+    "peak_rss_bytes": 222052352,
+    "rusage_scope": "os.wait4 rusage for this QEMU host process; guest kernel and userspace execute within it. resource.getrusage(RUSAGE_CHILDREN) is cumulative over every child this process reaped and is not used.",
+    "peak_rss_source": "ru_maxrss from wait4: true high-water mark of this child, bytes (Darwin)",
+    "sampling": "none; kernel-accounted child values, not sampled estimates"
+  },
+  "evidence": {
+    "nonce": "18d6b5db248e46aba8fcad05717e4328",
+    "ok": false,
+    "failures": [
+      "boot did not complete: no nonce-bound 'PROP|sys.boot_completed=1' line",
+      "incomplete framework: no nonce-bound 'FRAMEWORK|service_activity=found' line",
+      "incomplete framework: no nonce-bound 'FRAMEWORK|system_server_pid=<pid>' line",
+      "serial stream ended (QEMU exited 0) before boot completion: incomplete startup or a guest that never emitted the gate"
+    ],
+    "diagnostics": [],
+    "blocking_observations": [],
+    "stages": [
+      "kernel",
+      "first_stage_init",
+      "second_stage_init"
+    ],
+    "furthest_stage": "second_stage_init",
+    "stage_evidence": {
+      "kernel": {
+        "line": 1,
+        "source": "log"
+      },
+      "first_stage_init": {
+        "line": 304,
+        "source": "log"
+      },
+      "second_stage_init": {
+        "line": 466,
+        "source": "log"
+      }
+    },
+    "completion": {
+      "boot_completed": null,
+      "service_activity": null,
+      "system_server_pid": null
+    },
+    "protocol": {
+      "accepted": [],
+      "rejected": [],
+      "foreign_nonces": {},
+      "first_line": null,
+      "last_seq": 0
+    },
+    "counts": {}
+  }
+}

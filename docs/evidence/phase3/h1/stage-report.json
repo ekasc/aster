@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "nonce": "18d6b5db248e46aba8fcad05717e4328",
+  "framework_verified": false,
+  "furthest_stage": "second_stage_init",
+  "stage_timing_scope": "guest kernel uptime where printed, not host boot latency",
+  "stages": {
+    "kernel": {
+      "line": 1,
+      "serial_text": "[    0.000000][    T0] Booting Linux on physical CPU 0x0000000000 [0x000f0510]",
+      "guest_kernel_uptime_seconds": 0.0
+    },
+    "first_stage_init": {
+      "line": 304,
+      "serial_text": "[   14.382289][    T1] init: init first stage started!",
+      "guest_kernel_uptime_seconds": 14.382289
+    },
+    "second_stage_init": {
+      "line": 466,
+      "serial_text": "[   23.498251][    T1] init: init second stage started!",
+      "guest_kernel_uptime_seconds": 23.498251
+    }
+  },
+  "measurement": {
+    "pid": 27379,
+    "exit_code": 0,
+    "term_signal": null,
+    "timed_out": false,
+    "runner_stop_requested": false,
+    "cooperative_stop": false,
+    "escalated_to_kill": false,
+    "reaped": true,
+    "wall_seconds": 59.971495,
+    "cpu_seconds": 58.55329,
+    "cpu_percent_of_one_core": 97.635,
+    "peak_rss_bytes": 222052352,
+    "rusage_scope": "os.wait4 rusage for this QEMU host process; guest kernel and userspace execute within it. resource.getrusage(RUSAGE_CHILDREN) is cumulative over every child this process reaped and is not used.",
+    "peak_rss_source": "ru_maxrss from wait4: true high-water mark of this child, bytes (Darwin)",
+    "sampling": "none; kernel-accounted child values, not sampled estimates"
+  },
+  "failures": [
+    "apex_bootstrap_failure: [   58.128597][   T90] apexd-bootstrap: Found two APEX packages for module 'com.google.emulated.camera.provider.hal': /vendor/apex/com.google.emulated.camera.provider.hal.apex and /vendor/apex/com.google.emulated.camera.provider.hal.v4l2.apex. To select one, specify the filename using the 'ro.boot.v (line 764)",
+    "boot did not complete: no nonce-bound 'PROP|sys.boot_completed=1' line",
+    "incomplete framework: no nonce-bound 'FRAMEWORK|service_activity=found' line",
+    "incomplete framework: no nonce-bound 'FRAMEWORK|system_server_pid=<pid>' line",
+    "serial stream ended (QEMU exited 0) before boot completion: incomplete startup or a guest that never emitted the gate"
+  ],
+  "diagnostics": [],
+  "completion": {
+    "boot_completed": null,
+    "service_activity": null,
+    "system_server_pid": null
+  }
+}
