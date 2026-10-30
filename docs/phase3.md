@@ -51,6 +51,30 @@ RSS is the exact host QEMU process high-water mark from wait4, not configured
 guest RAM, iPhone memory use, or an Android completion-time estimate. The guest
 kernel timestamps in stage reports are labelled separately from host wall time.
 
+## Verified Linux foundation for the fallback path
+
+Because the Cuttlefish HAL contract cannot be satisfied here, the supported
+fallback from `docs/phase2-plan.md` now has a working base: an Alpine 3.20.3
+userspace on the bundle's Android GKI 6.12.74 kernel, prepared by
+`tools/android/linux_guest.py` from a hash-pinned minirootfs plus the bundle's
+own virtio modules.
+
+Observed on the host, QEMU exit 0:
+
+```text
+ASTER-LINUX-GUEST|uname=6.12.74-android16-6-g3ec022196c4e-ab15076761-4k
+ASTER-LINUX-GUEST|binder=kernel_support
+ASTER-LINUX-GUEST|binderfs_mount=ok
+ASTER-LINUX-GUEST|binderfs_nodes=binder binder-control features hwbinder vndbinder
+ASTER-LINUX-GUEST|release=3.20.3
+ASTER-LINUX-GUEST|apk=/sbin/apk
+ASTER-LINUX-GUEST|uid=0
+```
+
+That is Binder plus a package manager inside a guest we control, without any
+host daemon. It is not an Android boot: no Android init, zygote or framework
+ran. Evidence is in `docs/evidence/phase3/linux-gki/`.
+
 ## Current blocker and tested reasoning
 
 The tested QEMU build exposes no vsock device:

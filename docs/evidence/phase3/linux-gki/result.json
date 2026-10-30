@@ -1,0 +1,17 @@
+{
+  "framework_verified": false,
+  "scope": "Alpine Linux guest on the Android GKI kernel, not an Android userspace boot",
+  "kernel": "6.12.74-android16-6-g3ec022196c4e-ab15076761-4k",
+  "binderfs_mounted": true,
+  "binderfs_nodes": [
+    "binder",
+    "binder-control",
+    "features",
+    "hwbinder",
+    "vndbinder"
+  ],
+  "alpine_release": "3.20.3",
+  "apk_present": true,
+  "qemu_exit_code": 0,
+  "serial_sha256": "6b8e398e04ed66601ce719e670fc4bfb7b1c166248a3af7c0185e4e665f9820c"
+}

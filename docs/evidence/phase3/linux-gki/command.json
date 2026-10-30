@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "qemu": "/Users/ekassinghchhabra/Projects/aster/build/qemu/build-tci5/qemu-system-aarch64",
+  "args": [
+    "-M",
+    "virt,gic-version=3",
+    "-cpu",
+    "max",
+    "-accel",
+    "tcg,thread=single,tb-size=32",
+    "-smp",
+    "1",
+    "-m",
+    "1024",
+    "-nodefaults",
+    "-display",
+    "none",
+    "-monitor",
+    "none",
+    "-serial",
+    "stdio",
+    "-nic",
+    "none",
+    "-no-reboot",
+    "-snapshot",
+    "-kernel",
+    "/Users/ekassinghchhabra/Projects/aster/build/android/images/prepared/cf-arm64-only-phone-16644040/kernel",
+    "-initrd",
+    "/Users/ekassinghchhabra/Projects/aster/build/android/linux-guest/initramfs.gz",
+    "-append",
+    "console=ttyAMA0 rdinit=/init panic=-1"
+  ],
+  "timeout_seconds": 300,
+  "stop_on_completion": false,
+  "input_paths": [
+    "/Users/ekassinghchhabra/Projects/aster/build/android/images/prepared/cf-arm64-only-phone-16644040/kernel",
+    "/Users/ekassinghchhabra/Projects/aster/build/android/linux-guest/initramfs.gz"
+  ],
+  "hashes": {
+    "/Users/ekassinghchhabra/Projects/aster/build/android/images/prepared/cf-arm64-only-phone-16644040/kernel": "f722bdd809bfd3485917a564b053b8a6d4938408734091f420c3297a8e3b20c8",
+    "/Users/ekassinghchhabra/Projects/aster/build/android/linux-guest/initramfs.gz": "5066f2adb44d139ba9391061b47f3f5967f579332a0e00843c622ee65433b3a8"
+  },
+  "evidence_root": "/Users/ekassinghchhabra/Projects/aster/build/android/linux-guest/runs"
+}

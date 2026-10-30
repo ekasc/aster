@@ -1,30 +1,34 @@
 #!/bin/sh
-# PID 1 for the Alpine-on-GKI guest. Prints observable facts and stops.
-# No ASTER-BOOT marker: this is Linux, not a booted Android framework.
-exec > /dev/ttyAMA0 2>&1
+# PID 1 for the Alpine-on-GKI guest. Prints observable facts, then stops.
+# The GKI kernel has no devtmpfs, so console nodes are created explicitly here;
+# Android's own first-stage init does the same. No ASTER-BOOT marker: this is
+# Linux, not a booted Android framework.
+mknod /dev/console c 5 1 2>/dev/null
+mknod /dev/null c 1 3 2>/dev/null
 echo "ASTER-LINUX-GUEST|start"
 mount -t proc proc /proc 2>/dev/null
 mount -t sysfs sysfs /sys 2>/dev/null
-mount -t devtmpfs devtmpfs /dev 2>/dev/null
-for module in virtio_mmio virtio_pci virtio_blk virtio_rng; do
-    modprobe "$module" 2>/dev/null
+for module in /modules/virtio_pci.ko /modules/virtio_blk.ko; do
+    if [ -f "$module" ]; then
+        insmod "$module" && echo "ASTER-LINUX-GUEST|insmod=$(basename "$module")=ok"
+    fi
 done
 echo "ASTER-LINUX-GUEST|uname=$(uname -r)"
-echo "ASTER-LINUX-GUEST|binder=$([ -e /dev/binder ] && echo node || echo absent)"
-echo "ASTER-LINUX-GUEST|binderfs=$([ -e /sys/fs/binder ] && echo present || echo absent)"
-grep -q binder /proc/filesystems && echo "ASTER-LINUX-GUEST|filesystems=binder" || echo "ASTER-LINUX-GUEST|filesystems=none"
+if grep -q binder /proc/filesystems 2>/dev/null; then
+    echo "ASTER-LINUX-GUEST|binder=kernel_support"
+else
+    echo "ASTER-LINUX-GUEST|binder=absent"
+fi
 mkdir -p /dev/binderfs
-mount -t binder binder /dev/binderfs 2>/dev/null && echo "ASTER-LINUX-GUEST|binderfs_mount=ok" || echo "ASTER-LINUX-GUEST|binderfs_mount=failed"
-ls /dev/binderfs 2>/dev/null | tr '\n' ' ' | sed 's/^/ASTER-LINUX-GUEST|binderfs_nodes=/'
-echo
-mount -t tmpfs tmpfs /newroot/tmp 2>/dev/null
-mount --move /proc /newroot/proc 2>/dev/null
-mount --move /sys /newroot/sys 2>/dev/null
-mount --move /dev /newroot/dev 2>/dev/null
-exec switch_root /newroot /bin/sh -c '
-    echo "ASTER-LINUX-GUEST|userspace=alpine release=$(cat /etc/alpine-release 2>/dev/null)"
-    echo "ASTER-LINUX-GUEST|apk=$(command -v apk || echo absent)"
-    echo "ASTER-LINUX-GUEST|id=$(id -u)"
-    echo "ASTER-LINUX-GUEST|stop"
-    poweroff -f
-'
+if mount -t binder binder /dev/binderfs 2>/dev/null; then
+    echo "ASTER-LINUX-GUEST|binderfs_mount=ok"
+    echo "ASTER-LINUX-GUEST|binderfs_nodes=$(ls /dev/binderfs 2>/dev/null | tr '\n' ' ')"
+else
+    echo "ASTER-LINUX-GUEST|binderfs_mount=failed"
+fi
+echo "ASTER-LINUX-GUEST|release=$(cat /etc/alpine-release 2>/dev/null)"
+echo "ASTER-LINUX-GUEST|apk=$(command -v apk || echo absent)"
+echo "ASTER-LINUX-GUEST|uid=$(id -u)"
+echo "ASTER-LINUX-GUEST|stop"
+sync
+poweroff -f

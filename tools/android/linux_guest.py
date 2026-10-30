@@ -24,7 +24,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[2]
 WORK = ROOT / "build/android/linux-guest"
-MINIROOTFS_SHA256 = "TO_BE_PINNED_ON_FIRST_FETCH"
+MINIROOTFS_SHA256 = "041fa34a81788242df9e78fa69b97ab45b8ec47ddbf88864755610414a7bf3de"
 
 
 def sha256(path):
@@ -71,10 +71,14 @@ def newc(entries):
 
 
 def minirootfs_entries(path):
-    """Turn an Alpine minirootfs tarball into newc entries rooted at /newroot."""
+    """Turn an Alpine minirootfs tarball into newc entries rooted at /.
+
+    The guest needs /bin/sh to exist before the kernel execs /init, so the
+    minirootfs is the root filesystem rather than a directory under it.
+    """
     with tarfile.open(path) as archive:
         for member in safe_members(archive):
-            name = "newroot/" + member.name.rstrip("/")
+            name = member.name.rstrip("/")
             if member.isdir():
                 yield name, 0o040755, b""
             elif member.issym():
@@ -104,29 +108,42 @@ def build_initramfs(minirootfs, modules, init_script):
 
 
 def module_archive_entries(path):
-    """Modules from the Android vendor ramdisk (lz4), keyed by basename."""
+    """Modules from an Android vendor_boot image or a bare lz4 ramdisk."""
     import subprocess
 
-    raw = subprocess.run(
-        ["lz4", "-dc", str(path)], check=True, capture_output=True
-    ).stdout
-    wanted = (
-        "virtio_mmio.ko",
-        "virtio_blk.ko",
-        "virtio_pci.ko",
-        "virtio_rng.ko",
-        "virtio_input.ko",
-        "virtio-gpu.ko",
-        "virtio_console.ko",
+    data = Path(path).read_bytes()
+    if data[:8] == b"VNDRBOOT":
+        import images
+
+        image = images.parse_vendor_boot_image(Path(path))
+        first = image.ramdisks[0]
+        raw = data[
+            image.ramdisk_offset + first.offset : image.ramdisk_offset
+            + first.offset
+            + first.size
+        ]
+        if raw[:4] == b"\x02\x21\x4c\x18":
+            raw = subprocess.run(
+                ["lz4", "-dc"], input=raw, check=True, capture_output=True
+            ).stdout
+    else:
+        raw = subprocess.run(
+            ["lz4", "-dc", str(path)], input=data, check=True, capture_output=True
+        ).stdout
+    required = ("virtio_pci.ko", "virtio_blk.ko")
+    preferred = (
+        "virtio_mmio.ko", "virtio_rng.ko", "virtio_input.ko",
+        "virtio-gpu.ko", "virtio_console.ko",
     )
     found = {}
+    wanted = required + preferred
     for name, _mode, data in read_cpio(raw):
         base = name.rsplit("/", 1)[-1]
         if base in wanted and base not in found:
             found[base] = data
-    missing = [name for name in wanted if name not in found and name != "virtio_pci.ko"]
+    missing = [name for name in required if name not in found]
     if missing:
-        raise ValueError(f"module archive lacks {missing}")
+        raise ValueError(f"module archive lacks required {missing}")
     return found
 
 
