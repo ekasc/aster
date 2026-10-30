@@ -62,6 +62,22 @@ aborts with `Could not connect to sensors control: No such device`, and
 `tools/android/preflight.py` now answers this in two seconds instead of one
 30-minute boot.
 
+The fifth run measured the framework directly at guest uptime 1628.41 s:
+
+```text
+system_server state=R threads=56 rss=193132 kB
+service check activity        rc=124 (timed out in servicemanager)
+service check package         rc=0   Service package: not found
+service check window          rc=0   Service window: not found
+service check SurfaceFlinger  rc=124 (timed out)
+```
+
+`system_server` is alive and running, not dead and not out of memory, yet
+ActivityManager never registers. Wall time was 1800.08 s, CPU time 1789.77 s
+(99.427% of one core) and peak host RSS was 330596352 bytes. Two HAL aborts
+repeat throughout: the sensors control transport (`No such device`) and
+`node_id > 0`. This is a platform capability failure, not a timeout budget.
+
 ## Verified Linux foundation for the fallback path
 
 Because the Cuttlefish HAL contract cannot be satisfied here, the supported

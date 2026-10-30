@@ -1,0 +1,10 @@
+{
+  "runner_pid": 32783,
+  "connected": true,
+  "script_submitted": true,
+  "runner_returncode": 1,
+  "runner_reaped": true,
+  "cleanup_escalated": false,
+  "wall_seconds": 1811.5792064160341,
+  "console_socket_removed": true
+}
