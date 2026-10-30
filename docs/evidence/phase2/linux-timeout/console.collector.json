@@ -1,0 +1,8 @@
+{
+  "pid": 20550,
+  "reaped": true,
+  "cleanup_requested": true,
+  "escalated": true,
+  "returncode": -9,
+  "console_signal_forwarding": "devicectl forwards catchable signals to the app"
+}

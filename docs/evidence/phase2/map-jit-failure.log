@@ -1,0 +1,7 @@
+Launched application with dev.ekas.aster bundle identifier.
+Waiting for the application to terminate…
+[aster] engine=Aster AArch64 interpreter (no JIT) guest_page=4096 host_page=16384 device=iPhone18,3 os=27.0 ram=7.49 GB
+[policy] map_jit=denied (errno 1) rwx=allowed rw_to_rx=allowed
+[linux] starting QEMU TCI ram_mib=512 timeout_s=180 serial=/var/mobile/Containers/Data/Application/E4C8E5E4-1FDF-4514-BCB5-4958594B7F74/Documents/linux-serial.log
+aster-qemu: -accel tcg,thread=single,tb-size=32: allocate 33554432 bytes for jit buffer: Operation not permitted
+The app terminated with the exit code 0.

@@ -14,7 +14,7 @@ full-system backend is QEMU's TCI interpreter rather than its JIT.
 | Phase | State |
 |---|---|
 | 1. ARM64 guest execution on iOS | **Passed.** Host suite 62/62; device gate 6/6 on iPhone 17 (iOS 27.0), 65–95 MIPS on the integer payload. |
-| 2. Boot Android | Engine proven: Linux 6.6.134 boots to userspace under QEMU TCI on the host (34.5 s vs 8.3 s with JIT). iOS cross-compile not started. |
+| 2. Boot Android | Alpine Linux boots inside the physical iPhone app through QEMU TCI. Android kernel/device probe passes on the host; Android userspace boot remains blocked. See `docs/phase2.md`. |
 | 3. Run APKs | Not started. |
 | 4. Remote testing | Not started. |
 | 5. Expo build | Not started. |
@@ -84,6 +84,7 @@ docs/      constraints, architecture, Phase 1 evidence, Phase 2 plan
 
 ## Next step
 
-Cross-compile QEMU TCI for iOS arm64 (`docs/phase2-plan.md`) and boot the same
-Linux kernel from inside the app. The host result to match is 34.46 s to
-userspace under TCI versus 8.31 s with JIT.
+Reproduce the physical Linux boot with `docs/phase2-build.md`. Select a matched
+Android ARM64 kernel, ramdisk, vendor, and partition-image bundle for the next
+host gate. A GSI alone is insufficient. See `docs/android-host.md` for the
+verified kernel dependencies and the remaining boot stages.

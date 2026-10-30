@@ -1,0 +1,7 @@
+ts	phase	decision	why	evidence	result
+2026-10-30T05:34:31Z	gates	Require a complete physical gate summary, including on timeout	A timeout previously passed without evidence	tools/test_device_gate.py	Eight launch-result cases pass
+2026-10-30T05:34:31Z	embedding	Package actual executable objects without system/main.c	The internal archive is not a complete embedding library; dependency stubs conflict when force-loaded	tools/qemu/package_ios.py	Physical iOS app boots
+2026-10-30T05:34:31Z	device	Remove MAP_JIT only from the TCI bytecode path	The real phone rejected the upstream buffer allocation with EPERM	docs/evidence/phase2/map-jit-failure.log	Patched TCI reaches userspace
+2026-10-30T05:34:31Z	lifecycle	Reject restart and explicitly join the round-robin vCPU	Upstream cleanup pauses execution but does not provide reusable initialization or terminate that thread	docs/evidence/phase2/linux-boot/console.log	vCPU joined; restart rejected with -3
+2026-10-30T05:34:31Z	repeat	Preserve the stalled repeat and disable automatic screen sleep during later foreground boots	The stalled repeat had no summary; its cause was not established	docs/evidence/phase2/interrupted-repeat.log	Failure cause remains inconclusive; final foreground run passes
+2026-10-30T05:34:31Z	android	Keep the Android userspace gate incomplete	The verified init is Alpine diagnostic userspace, not Android init and vendor services	docs/evidence/phase2/android-kernel-probe/result.json	Kernel dependencies pass; Android boot unexecuted

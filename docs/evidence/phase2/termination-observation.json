@@ -1,0 +1,18 @@
+{
+  "before": {
+    "aster_reports": [
+      "Aster-2026-10-29-210658.ips                                                                                                   Writable, Readable              15 KB       29/10/26, 9:06\u202fPM ",
+      "Aster-2026-10-29-210714.ips                                                                                                   Writable, Readable              15 KB       29/10/26, 9:07\u202fPM "
+    ],
+    "latest_jetsam": "JetsamEvent-2026-10-15-163621.ips                                                                                             Writable, Readable              273 KB      15/10/26, 4:36\u202fPM "
+  },
+  "after": {
+    "aster_reports": [
+      "Aster-2026-10-29-210658.ips                                                                                                   Writable, Readable              15 KB       29/10/26, 9:06\u202fPM ",
+      "Aster-2026-10-29-210714.ips                                                                                                   Writable, Readable              15 KB       29/10/26, 9:07\u202fPM "
+    ],
+    "latest_jetsam": "JetsamEvent-2026-10-15-163621.ips                                                                                             Writable, Readable              273 KB      15/10/26, 4:36\u202fPM "
+  },
+  "final_aster_processes": [],
+  "limitations": "Only the exposed systemCrashLogs domain was inspected; reporting can be delayed. Collector cleanup forwards signals and is not jetsam."
+}

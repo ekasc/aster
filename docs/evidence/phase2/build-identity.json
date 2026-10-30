@@ -1,0 +1,31 @@
+{
+  "qemu_version": "11.1.3",
+  "backend": "TCI",
+  "run_directories": {
+    "linux-boot": "build/qemu/device-boot-20261029-222349",
+    "linux-cancel": "build/qemu/device-cancel-20261029-222504",
+    "linux-timeout": "build/qemu/device-timeout-20261029-222513",
+    "android-kernel-probe": "build/android/run-knbqmu5e"
+  },
+  "sha256": {
+    "build/qemu/qemu-11.1.3.tar.xz": "5a8289c7940dc77d3873c81a6c29ba3afe1446fc9d36e77fa1658cdbecb84b22",
+    "build/qemu/images/vmlinuz-virt": "573d0eb4713fc7b631e7242a95fa9d048c60365993658b24d5106a69d0a0e7f2",
+    "build/qemu/images/initramfs-virt": "90f5159c2cbf81b5d6ad7b14a314815589a7077d0e8fa4e8aa0403c3fef458ae",
+    "build/qemu/build-ios-tci/libaster-qemu.a": "94cd45eb24e93717d1a1034d82f583ac085b2f00727bf32a2f991310954a18af",
+    "build/xcode/Build/Products/Release-iphoneos/Aster.app/Aster": "88ff8b4929ebc0b34c3ac4ddd2d81a35ea4e81d29158adc09071dc87f5c43320",
+    "tools/qemu/ios_engine.c": "a8cd46c467aab849bb781f80380c97485ce1de8e242a787d19b350f5457a3424",
+    "tools/qemu/patch_ios.py": "035b2b8c0cddd824934647c452b4cd7832fe1298b58ea69cb032aaf1bc9ca23a"
+  },
+  "engine_object_build_version": "build/qemu/build-ios-tci/aster-ios-engine.o:\nLoad command 1\n      cmd LC_BUILD_VERSION\n  cmdsize 24\n platform IOS\n    minos 18.0\n      sdk 27.0\n   ntools 0\n",
+  "config": [
+    "#define CONFIG_DARWIN",
+    "#undef CONFIG_MODULES",
+    "#undef CONFIG_PIXMAN",
+    "#define CONFIG_TCG_INTERPRETER"
+  ],
+  "tool_versions": {
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.2.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+    "meson": "1.11.1",
+    "ninja": "1.13.2"
+  }
+}

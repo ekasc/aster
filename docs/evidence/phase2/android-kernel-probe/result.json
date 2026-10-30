@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "android_booted": false,
+  "timed_out": false,
+  "exit_code": 0,
+  "elapsed_seconds": 11.428,
+  "pid": 99674,
+  "process_reaped": true
+}

@@ -20,7 +20,7 @@ xcodebuild -project "$ROOT/app/Aster.xcodeproj" -scheme Aster -configuration Rel
 xcrun devicectl device install app --device "$DEVICE" "$APP" >/dev/null
 
 set +e
-OUTPUT="$(timeout 90 xcrun devicectl device process launch --device "$DEVICE" \
+OUTPUT="$(timeout -k 5 90 xcrun devicectl device process launch --device "$DEVICE" \
   --console --terminate-existing "$BUNDLE" --autorun 2>&1)"
 STATUS=$?
 set -e
@@ -31,15 +31,15 @@ if printf '%s' "$OUTPUT" | grep -q "BSErrorCodeDescription = Locked"; then
   echo "PHONE LOCKED: unlock the iPhone and re-run. The app is installed; no rebuild needed." >&2
   exit 2
 fi
-if printf '%s' "$OUTPUT" | grep -q "\[gate\] summary 6/6"; then
+if printf '%s\n' "$OUTPUT" | tr -d '\r' | grep -qx '\[gate\] summary 6/6'; then
   echo
   echo "DEVICE GATE PASSED (6/6)"
   exit 0
 fi
 if [ "$STATUS" -eq 124 ]; then
   echo
-  echo "Launch succeeded but --console timed out; results were captured above." >&2
-  exit 0
+  echo "DEVICE GATE NOT CONFIRMED: console timed out without the required summary." >&2
+  exit 1
 fi
 echo
 echo "DEVICE GATE NOT CONFIRMED (exit $STATUS)" >&2

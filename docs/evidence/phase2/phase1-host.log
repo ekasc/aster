@@ -1,0 +1,39 @@
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/hello.elf entry=0x400000ac size=8480
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/threads.elf entry=0x400000ac size=73744
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/demo.elf entry=0x400000ac size=13312
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/fp.elf entry=0x400000ac size=8192
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/fault_unmapped.elf entry=0x400000ac size=8192
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/fault_rodata.elf entry=0x400000ac size=8192
+guest payloads in /Users/ekassinghchhabra/Projects/aster/build/guest
+[ RUN ] bitmask-immediate
+[  OK  ] bitmask-immediate
+[ RUN ] guest-memory
+[  OK  ] guest-memory
+[ RUN ] elf-rejects-garbage
+[  OK  ] elf-rejects-garbage
+[ RUN ] hello
+[  OK  ] hello
+[ RUN ] demo
+[  OK  ] demo
+[ RUN ] threads
+[  OK  ] threads
+[ RUN ] floating-point
+[  OK  ] floating-point
+[ RUN ] faults
+  debug: guest fault: unmapped at pc 0x400000dc
+  debug: guest fault: permissions at pc 0x400000d4
+[  OK  ] faults
+[ RUN ] instruction-budget
+  debug: guest fault: host-abort at pc 0x40000258 (instruction budget exhausted)
+  debug: fault detail: instruction budget exhausted pc=0x40000258 insn=0x00000000
+[  OK  ] instruction-budget
+[ RUN ] telemetry
+  telemetry: 1002695 instructions in 12.093 ms = 82.9 MIPS, peak RSS 2.1 MiB
+[  OK  ] telemetry
+
+62 checks, 0 failures
+
+{"payload":"hello","ok":true,"exit":0,"fault":"none","instructions":1002695,"wall_ms":11.849,"mips":84.6,"guest_ram_mb":256,"peak_rss_mb":1.83,"threads":0}
+{"payload":"demo","ok":true,"exit":0,"fault":"none","instructions":474313,"wall_ms":6.617,"mips":71.7,"guest_ram_mb":256,"peak_rss_mb":1.88,"threads":0}
+{"payload":"threads","ok":true,"exit":0,"fault":"none","instructions":886243,"wall_ms":29.216,"mips":30.3,"guest_ram_mb":256,"peak_rss_mb":2.11,"threads":4}
+{"payload":"fp","ok":true,"exit":0,"fault":"none","instructions":697,"wall_ms":0.014,"mips":50.7,"guest_ram_mb":256,"peak_rss_mb":2.11,"threads":0}

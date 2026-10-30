@@ -1,0 +1,15 @@
+[
+  "xcrun",
+  "devicectl",
+  "device",
+  "process",
+  "launch",
+  "--device",
+  "00008150-001C056A3693401C",
+  "--console",
+  "--terminate-existing",
+  "dev.ekas.aster",
+  "--linux",
+  "--linux-run-id=5afeaf74-29a9-4e94-8812-e67fd9c1e36f",
+  "--linux-cancel-test"
+]

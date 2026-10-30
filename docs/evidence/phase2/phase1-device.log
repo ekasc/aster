@@ -1,0 +1,21 @@
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/hello.elf entry=0x400000ac size=8480
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/threads.elf entry=0x400000ac size=73744
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/demo.elf entry=0x400000ac size=13312
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/fp.elf entry=0x400000ac size=8192
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/fault_unmapped.elf entry=0x400000ac size=8192
+elflink: /Users/ekassinghchhabra/Projects/aster/build/guest/fault_rodata.elf entry=0x400000ac size=8192
+guest payloads in /Users/ekassinghchhabra/Projects/aster/build/guest
+Launched application with dev.ekas.aster bundle identifier.
+Waiting for the application to terminate…
+[aster] engine=Aster AArch64 interpreter (no JIT) guest_page=4096 host_page=16384 device=iPhone18,3 os=27.0 ram=7.49 GB
+[policy] map_jit=denied (errno 1) rwx=allowed rw_to_rx=allowed
+[gate] hello PASS status=exit 0 exit=0 fault=0 insns=1002695 wall_ms=16.02 mips=62.6 peak_mb=38.1 msg=guest exited with code 0 [status 0]
+[gate] demo PASS status=exit 0 exit=0 fault=0 insns=474313 wall_ms=10.03 mips=47.3 peak_mb=43.2 msg=guest exited with code 0 [status 0]
+[gate] threads PASS status=exit 0 exit=0 fault=0 insns=766098 wall_ms=20.14 mips=38.0 peak_mb=44.0 msg=guest exited with code 0 [status 0]
+[gate] fp PASS status=exit 0 exit=0 fault=0 insns=697 wall_ms=0.01 mips=47.1 peak_mb=44.0 msg=guest exited with code 0 [status 0]
+[gate] fault_unmapped PASS status=unmapped exit=0 fault=1 insns=113 wall_ms=0.00 mips=31.9 peak_mb=44.0 msg=guest fault: unmapped at pc 0x400000dc |  [status -1]
+[gate] fault_rodata PASS status=permissions exit=0 fault=2 insns=362 wall_ms=0.01 mips=57.5 peak_mb=44.0 msg=guest fault: permissions at pc 0x400000d4 |  [status -1]
+[gate] summary 6/6
+App terminated due to signal 15.
+
+DEVICE GATE PASSED (6/6)

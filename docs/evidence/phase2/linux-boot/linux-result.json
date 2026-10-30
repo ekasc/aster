@@ -1,0 +1,17 @@
+{
+  "cancelled" : 0,
+  "cpu_percent" : 78.120175155675582,
+  "engine" : "QEMU 11.1.3 TCI",
+  "machine" : "virt,gic-version=3",
+  "passed" : true,
+  "peak_rss_bytes" : 326254592,
+  "ram_mib" : 512,
+  "restart_status" : -3,
+  "run_id" : "4f509ad5-8632-4092-a01c-e28f3253d2d0",
+  "status" : 0,
+  "timed_out" : 0,
+  "timeout_seconds" : 180,
+  "userspace" : 1,
+  "userspace_seconds" : 25.195212000049651,
+  "wall_seconds" : 26.201621999964118
+}
