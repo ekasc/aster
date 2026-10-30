@@ -1,5 +1,15 @@
 # Phase 3 Android boot status
 
+## Latest Waydroid result
+
+The existing pinned Waydroid userspace now executes first-stage and second-stage
+Android init as guest PID 1. A final 90-second run verified a property-service
+write/read and five registered Binder services, including vold. ActivityManager and package service remain
+absent; `sys.boot_completed` is empty. See [phase3-waydroid.md](phase3-waydroid.md)
+for the measured failure sequence, immutable-image bootstrap and next gate.
+Earlier Cuttlefish transport conclusions below are historical hypotheses, not
+proof that missing vsock alone prevents its framework boot.
+
 The phase is incomplete. Real AOSP Android init, partition mounts, userdata,
 zygote, SurfaceFlinger startup, and a system_server Binder caller have executed
 under host QEMU TCI. No run has yet verified `sys.boot_completed=1` together

@@ -1,0 +1,22 @@
+{
+  "waydroid_revision": "db7294c4c2bd43157bab94cf8a3015e22d9f1ad8",
+  "system_core_reference_revision": "c0500ffe2cc283d61f1e3db1b2c979bfbd9beb8c",
+  "files": {
+    "data/configs/config_1": "a792f0696764b4c287c0811fa3bee9635cf16b261a1365f4a41ed5c5f5d1cd76",
+    "data/configs/config_3": "dc8bb5a0175f5efc48776aa08b1872de34f8b6950048806f165233df91373edf",
+    "data/configs/config_4": "d99da9fc502c04764bf55c8b2778a27b58eb2b2f9d65926675bb7349d996cf08",
+    "data/configs/config_base": "51c00c49e2766ac432d435f3917c8db365411c2705a15084519c27adb6877937",
+    "data/scripts/waydroid-net.sh": "6c3eb1334bb1eeabda391d44f1b0ad580e62700bd1485bd633fdbee70f8f2fbc",
+    "data/scripts/waydroid-post-stop.sh": "579ab6292a0e0f791279b0183be01f2664a303feed2cba9bc7f82296f4db1a26",
+    "system-core/fs_mgr_fstab.cpp": "fedb1064b33a0660d93bde63c6bec34de24b03de59eab37ecabba42db0f91cfe",
+    "system-core/init/first_stage_init.cpp": "ef4e13199b486a3570d0ae293248fd40aa6dfd999791d0a87ffbe592fd3dcb1c",
+    "system-core/init/first_stage_mount.cpp": "3f6949f3b1df72d7cba40993b6fc454341932c7ac587d7c2f82e2bcd5424154b",
+    "system-core/init/init.cpp": "00499cd2eb7058f7b19c913cb27bc237bfc62ea4168e6db1bdc9690299c17633",
+    "system-core/init/main.cpp": "46c7e672734760a1deb2223900fd1e378111ba94a00ba100f627a949b3d9add0",
+    "tools/actions/session_manager.py": "9ae4b0d8cda39b16b534e178b16461e277fbf9741e9f043202d8609749d33dba",
+    "tools/helpers/images.py": "9d36448872a37745275cd9dd17391a784172290cc567bd6ba3015d7a76ce0984",
+    "tools/helpers/lxc.py": "4a1a8d6ca3065461fed793b69e914fc38de532722afd89c12d8d3032411eab56",
+    "tools/helpers/mount.py": "67483f7553240793ed909d667188c4f48468d29298dd171cb70f94503ed85511"
+  },
+  "limitation": "Reference system/core is not guaranteed identical to shipped Waydroid init; runtime logs take precedence."
+}
