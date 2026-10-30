@@ -1,0 +1,12 @@
+# Build products
+build/
+DerivedData/
+*.o
+*.a
+*.dSYM
+.DS_Store
+
+# Xcode user state (the project itself is generated and tracked)
+app/Aster.xcodeproj/project.xcworkspace/
+app/Aster.xcodeproj/xcuserdata/
+app/Aster.xcodeproj/project.xcworkspace/xcuserdata/

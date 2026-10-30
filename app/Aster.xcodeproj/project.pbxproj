@@ -1,0 +1,388 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+/* Begin PBXBuildFile section */
+		B0000000000000000000002 /* AsterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000001 /* AsterApp.swift */; };
+		B0000000000000000000004 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000003 /* ContentView.swift */; };
+		B0000000000000000000006 /* RuntimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000005 /* RuntimeController.swift */; };
+		B0000000000000000000008 /* api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000007 /* api.cpp */; };
+		B000000000000000000000A /* cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000009 /* cpu.cpp */; };
+		B000000000000000000000C /* elf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F000000000000000000000B /* elf.cpp */; };
+		B000000000000000000000E /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F000000000000000000000D /* machine.cpp */; };
+		B0000000000000000000010 /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F000000000000000000000F /* memory.cpp */; };
+		B0000000000000000000012 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000011 /* platform.cpp */; };
+		B000000000000000000001C /* demo.elf in Resources */ = {isa = PBXBuildFile; fileRef = F000000000000000000001B /* demo.elf */; };
+		B000000000000000000001E /* fault_rodata.elf in Resources */ = {isa = PBXBuildFile; fileRef = F000000000000000000001D /* fault_rodata.elf */; };
+		B0000000000000000000020 /* fault_unmapped.elf in Resources */ = {isa = PBXBuildFile; fileRef = F000000000000000000001F /* fault_unmapped.elf */; };
+		B0000000000000000000022 /* fp.elf in Resources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000021 /* fp.elf */; };
+		B0000000000000000000024 /* hello.elf in Resources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000023 /* hello.elf */; };
+		B0000000000000000000026 /* threads.elf in Resources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000025 /* threads.elf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F0000000000000000000001 /* AsterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsterApp.swift; sourceTree = "<group>"; };
+		F0000000000000000000003 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F0000000000000000000005 /* RuntimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeController.swift; sourceTree = "<group>"; };
+		F0000000000000000000007 /* api.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = api.cpp; sourceTree = "<group>"; };
+		F0000000000000000000009 /* cpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cpu.cpp; sourceTree = "<group>"; };
+		F000000000000000000000B /* elf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = elf.cpp; sourceTree = "<group>"; };
+		F000000000000000000000D /* machine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = machine.cpp; sourceTree = "<group>"; };
+		F000000000000000000000F /* memory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = memory.cpp; sourceTree = "<group>"; };
+		F0000000000000000000011 /* platform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cpp; sourceTree = "<group>"; };
+		F0000000000000000000013 /* aster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aster.h; sourceTree = "<group>"; };
+		F0000000000000000000014 /* clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = clock.h; sourceTree = "<group>"; };
+		F0000000000000000000015 /* cpu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
+		F0000000000000000000016 /* elf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = elf.h; sourceTree = "<group>"; };
+		F0000000000000000000017 /* hypercall.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hypercall.h; sourceTree = "<group>"; };
+		F0000000000000000000018 /* machine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = machine.h; sourceTree = "<group>"; };
+		F0000000000000000000019 /* memory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memory.h; sourceTree = "<group>"; };
+		F000000000000000000001A /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		F000000000000000000001B /* demo.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ../build/guest/demo.elf; sourceTree = SOURCE_ROOT; };
+		F000000000000000000001D /* fault_rodata.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ../build/guest/fault_rodata.elf; sourceTree = SOURCE_ROOT; };
+		F000000000000000000001F /* fault_unmapped.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ../build/guest/fault_unmapped.elf; sourceTree = SOURCE_ROOT; };
+		F0000000000000000000021 /* fp.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ../build/guest/fp.elf; sourceTree = SOURCE_ROOT; };
+		F0000000000000000000023 /* hello.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ../build/guest/hello.elf; sourceTree = SOURCE_ROOT; };
+		F0000000000000000000025 /* threads.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ../build/guest/threads.elf; sourceTree = SOURCE_ROOT; };
+		F0000000000000000000027 /* Aster-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Aster-Bridging-Header.h; sourceTree = "<group>"; };
+		F0000000000000000000028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0000000000000000000029 /* Aster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		S0000000000000000000034 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G000000000000000000002A /* Aster */ = {
+			isa = PBXGroup;
+			children = (
+				F0000000000000000000001 /* AsterApp.swift */,
+				F0000000000000000000003 /* ContentView.swift */,
+				F0000000000000000000005 /* RuntimeController.swift */,
+				F0000000000000000000027 /* Aster-Bridging-Header.h */,
+				F0000000000000000000028 /* Info.plist */,
+			);
+			path = Aster;
+			sourceTree = "<group>";
+		};
+		G000000000000000000002C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F0000000000000000000007 /* api.cpp */,
+				F0000000000000000000009 /* cpu.cpp */,
+				F000000000000000000000B /* elf.cpp */,
+				F000000000000000000000D /* machine.cpp */,
+				F000000000000000000000F /* memory.cpp */,
+				F0000000000000000000011 /* platform.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		G000000000000000000002D /* aster */ = {
+			isa = PBXGroup;
+			children = (
+				F0000000000000000000013 /* aster.h */,
+				F0000000000000000000014 /* clock.h */,
+				F0000000000000000000015 /* cpu.h */,
+				F0000000000000000000016 /* elf.h */,
+				F0000000000000000000017 /* hypercall.h */,
+				F0000000000000000000018 /* machine.h */,
+				F0000000000000000000019 /* memory.h */,
+				F000000000000000000001A /* types.h */,
+			);
+			path = aster;
+			sourceTree = "<group>";
+		};
+		G000000000000000000002B /* core */ = {
+			isa = PBXGroup;
+			children = (
+				G000000000000000000002D /* aster */,
+				G000000000000000000002C /* src */,
+			);
+			path = ../core;
+			sourceTree = SOURCE_ROOT;
+		};
+		G000000000000000000002E /* guest */ = {
+			isa = PBXGroup;
+			children = (
+				F000000000000000000001B /* demo.elf */,
+				F000000000000000000001D /* fault_rodata.elf */,
+				F000000000000000000001F /* fault_unmapped.elf */,
+				F0000000000000000000021 /* fp.elf */,
+				F0000000000000000000023 /* hello.elf */,
+				F0000000000000000000025 /* threads.elf */,
+			);
+			name = "Guest payloads";
+			sourceTree = "<group>";
+		};
+		G000000000000000000002F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0000000000000000000029 /* Aster.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		G0000000000000000000030 = {
+			isa = PBXGroup;
+			children = (
+				G000000000000000000002A /* Aster */,
+				G000000000000000000002B /* core */,
+				G000000000000000000002E /* guest */,
+				G000000000000000000002F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		T0000000000000000000031 /* Aster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0000000000000000000036 /* Build configuration list for PBXNativeTarget "Aster" */;
+			buildPhases = (
+				S0000000000000000000033 /* Sources */,
+				S0000000000000000000034 /* Frameworks */,
+				S0000000000000000000035 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Aster;
+			productName = Aster;
+			productReference = F0000000000000000000029 /* Aster.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		P0000000000000000000032 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					T0000000000000000000031 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = C0000000000000000000037 /* Build configuration list for PBXProject "Aster" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = G0000000000000000000030;
+			productRefGroup = G000000000000000000002F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				T0000000000000000000031 /* Aster */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		S0000000000000000000035 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B000000000000000000001C /* demo.elf in Resources */,
+				B000000000000000000001E /* fault_rodata.elf in Resources */,
+				B0000000000000000000020 /* fault_unmapped.elf in Resources */,
+				B0000000000000000000022 /* fp.elf in Resources */,
+				B0000000000000000000024 /* hello.elf in Resources */,
+				B0000000000000000000026 /* threads.elf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		S0000000000000000000033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0000000000000000000002 /* AsterApp.swift in Sources */,
+				B0000000000000000000004 /* ContentView.swift in Sources */,
+				B0000000000000000000006 /* RuntimeController.swift in Sources */,
+				B0000000000000000000008 /* api.cpp in Sources */,
+				B000000000000000000000A /* cpu.cpp in Sources */,
+				B000000000000000000000C /* elf.cpp in Sources */,
+				B000000000000000000000E /* machine.cpp in Sources */,
+				B0000000000000000000010 /* memory.cpp in Sources */,
+				B0000000000000000000012 /* platform.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		X000000000000000000003A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = -Onone;
+			};
+			name = Debug;
+		};
+		X000000000000000000003B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = -Onone;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		X0000000000000000000038 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3D973X589K;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../core/include";
+				INFOPLIST_FILE = Aster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ekas.aster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = Aster/Aster-Bridging-Header.h;
+			};
+			name = Debug;
+		};
+		X0000000000000000000039 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3D973X589K;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../core/include";
+				INFOPLIST_FILE = Aster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ekas.aster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = Aster/Aster-Bridging-Header.h;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0000000000000000000037 /* Build configuration list for PBXProject "Aster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				X000000000000000000003A /* Debug */,
+				X000000000000000000003B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0000000000000000000036 /* Build configuration list for PBXNativeTarget "Aster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				X0000000000000000000038 /* Debug */,
+				X0000000000000000000039 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = P0000000000000000000032 /* Project object */;
+}

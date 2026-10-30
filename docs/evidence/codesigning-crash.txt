@@ -1,0 +1,15 @@
+Source: iPhone 17 (iPhone18,3), iOS 27.0 (24A435)
+Report: Aster-2026-10-29-210714.ips (system crash logs)
+Trigger: --probe-exec, one page of mmap(PROT_READ|PROT_WRITE) followed by
+         mprotect(PROT_READ|PROT_EXEC), containing `mov w0,#1; ret`.
+
+exception:   EXC_BAD_ACCESS
+signal:      SIGKILL
+subtype:     KERN_PROTECTION_FAILURE at 0x0000000102a54000
+termination: namespace CODESIGNING, code 2, indicator "Invalid Page"
+thread:      com.apple.main-thread
+frame 0:     RuntimeController.probeUnsignedExecution()
+frame 1:     closure #2 in ContentView.body.getter
+
+The function call did not return. The process was terminated by the code
+signing fault path; no core dump was produced.
